@@ -5,7 +5,7 @@ const description_span = document.querySelector('#description')
 const icon_img = document.querySelector('img')
 const url = 'https://api.openweathermap.org/data/2.5/weather?'
 const icon_url = 'http://openweathermap.org/img/wn/'
-const api_key = ''
+const api_key = '570945926c5edee7755c302e984f1521'
 
 const getLocation = () => {
     if (navigator.geolocation) {
@@ -20,10 +20,10 @@ const getLocation = () => {
         alert("Your browser does not support geolocation!")
     }
 }
-const getWeather= {lat,lng} => {
+const getWeather= (lat,lng) => {
     const adress = url +
     'lat=' + lat +
-    '&long=' + lng +
+    '&lon=' + lng +
     '&units=metric' + 
     '&appid=' + api_key
     axios.get(adress)
@@ -32,7 +32,8 @@ const getWeather= {lat,lng} => {
             temp_span.innerHTML = json.main.temp + '&#8451;'
             speed_span.innerHTML = json.wind.speed + 'm / s'
             direction_span.innerHTML = json.wind.deg + '&#176;'
-            description_span.innerHTML = json.weather[0].icon + '@2x.png'
+            description_span.innerHTML = json.weather[0].description 
+            const image = icon_url + json.weather[0].icon + '@2x.png'
             icon_img.src = image
         }).catch(error => {
             alert(error)
